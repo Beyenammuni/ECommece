@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ClinicManagement.App/ClinicManagement.App.csproj" Id="41bc9b9c-0c61-4d83-a3b2-f62df4907ff4" />
+  <Project Path="ClinicManagement.Main/ClinicManagement.Main.csproj" Id="dd75caba-772e-4e91-a9b9-d333fc22935a" />
+  <Project Path="ClinicManagement/ClinicManagement.csproj" />
+</Solution>
