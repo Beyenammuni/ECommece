@@ -50,7 +50,6 @@ namespace ECommerceSystem.App.Service
             return Result<ProductDto>.Success(result);
         }
 
-        // 🔹 GET ALL
         public async Task<Result<List<ProductDto>>> GetAllProductsAsync()
         {
             var products = await _unit.Products.GetAllAsync();
