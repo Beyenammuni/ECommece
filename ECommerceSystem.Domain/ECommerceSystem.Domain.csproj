@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\CardItemDto\Request\" />
+    <Folder Include="DTOs\CardItemDto\Response\" />
+    <Folder Include="DTOs\CategoryDtos\Request\" />
+    <Folder Include="DTOs\OrderDtos\Request\" />
+    <Folder Include="DTOs\OrderItemStos\Request\" />
+    <Folder Include="DTOs\OrderItemStos\Response\" />
+    <Folder Include="DTOs\UserDtos\Request\" />
+    <Folder Include="DTOs\UserDtos\Response\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECommeceSystem.EF\ECommeceSystem.EF.csproj" />
+    <ProjectReference Include="..\ECommerceSystem.Core\ECommerceSystem.Core.csproj" />
+  </ItemGroup>
+
+</Project>

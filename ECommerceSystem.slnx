@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ECommeceSystem.EF/ECommeceSystem.EF.csproj" />
+  <Project Path="ECommerceSystem.Core/ECommerceSystem.Core.csproj" />
+  <Project Path="ECommerceSystem.Domain/ECommerceSystem.Domain.csproj" Id="0d6347ae-853c-4bd0-ae80-10b9172b5101" />
+  <Project Path="ECommerceSystem/ECommerceSystem.csproj" />
+</Solution>
