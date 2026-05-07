@@ -50,7 +50,6 @@ namespace ECommerceSystem.App.Service
             return Result<ProductDto>.Success(result);
         }
 
-        // 🔹 GET ALL
         public async Task<Result<List<ProductDto>>> GetAllProductsAsync()
         {
             var products = await _unit.Products.GetAllAsync();
@@ -116,6 +115,16 @@ namespace ECommerceSystem.App.Service
             await _unit.Products.DeleteAsync(product);
             await _unit.Complete();
 
+            return Result<bool>.Success(true);
+        }
+
+        public async Task<Result<bool>> SoftDeleteAsync(int productId)
+        {
+            var product = _unit.Products.GetByIdAsync(productId);
+            if (product == null)
+                return Result<bool>.Failure("Product not found");
+            product.Result.IsActive = false;
+                  await _unit.Complete();
             return Result<bool>.Success(true);
         }
     }

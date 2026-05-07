@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ECommerceSystem.Domain.IServices
 {
-    internal interface IUserService
+    public interface IUserService
     {
     }
 }

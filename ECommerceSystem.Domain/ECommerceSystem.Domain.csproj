@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\CardItemDto\Request\" />
-    <Folder Include="DTOs\CardItemDto\Response\" />
-    <Folder Include="DTOs\CategoryDtos\Request\" />
+    <Compile Remove="DTOs\CardItemDto\**" />
+    <EmbeddedResource Remove="DTOs\CardItemDto\**" />
+    <None Remove="DTOs\CardItemDto\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="DTOs\OrderDtos\Request\" />
     <Folder Include="DTOs\OrderItemStos\Request\" />
     <Folder Include="DTOs\OrderItemStos\Response\" />
