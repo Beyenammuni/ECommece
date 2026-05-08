@@ -7,6 +7,7 @@ namespace ECommeceSystem.EF.Models
 {
     public class CategoryModel
     {
+
         public int Id { get; set; }
 
         [Required]

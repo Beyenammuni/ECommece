@@ -22,5 +22,11 @@ namespace ECommerceSystem.Controllers
                 return Ok(result);
             return BadRequest(result);
         }
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var result = await _categoryService.GetAllCategoriesAsync();
+            return Ok(result);
+        }
     }
 }

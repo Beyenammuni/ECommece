@@ -14,5 +14,7 @@ namespace ECommeceSystem.EF.IRepositries
         Task AddAsync(ProductModel product);
         void Update(ProductModel product);
         void Delete(ProductModel product);
+        Task SoftDeleteAsync(ProductModel product);
+        void UpdateStock(ProductModel product);
     }
 }

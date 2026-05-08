@@ -41,5 +41,14 @@ namespace ECommeceSystem.EF.Repository
         {
             _context.Products.Remove(product);
         }
+        public async Task SoftDeleteAsync(ProductModel product)
+        {
+            product.IsActive = true;
+            _context.Products.Update(product);
+        }
+        public void UpdateStock(ProductModel product)
+        {
+           _context.Products.Update(product);
+        }
     }
 }

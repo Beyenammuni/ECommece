@@ -5,6 +5,7 @@ using ECommerceSystem.App.DTOs.ProductDtos.Request;
 using ECommerceSystem.App.DTOs.ProductDtos.Response;
 using ECommerceSystem.App.IServices;
 using ECommerceSystem.Core.Result;
+using ECommerceSystem.Domain.DTOs.ProductDtos.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -125,6 +126,18 @@ namespace ECommerceSystem.App.Service
                 return Result<bool>.Failure("Product not found");
             product.Result.IsActive = false;
                   await _unit.Complete();
+            return Result<bool>.Success(true);
+        }
+
+        public async Task<Result<bool>> UpdateStockAsync(int productId, UpdateStockDto stockDto)
+        {
+            var stock = _unit.Products.GetByIdAsync(productId);
+            if (stock == null)
+                return Result<bool>.Failure("Product not found");
+            if(stockDto.StockQuantity < 0)
+                return Result<bool>.Failure("Stock quantity cannot be negative");
+            stock.Result.StockQuantity = stockDto.StockQuantity;
+            await _unit.Complete();
             return Result<bool>.Success(true);
         }
     }

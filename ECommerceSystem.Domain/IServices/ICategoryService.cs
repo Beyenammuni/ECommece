@@ -1,4 +1,5 @@
 ﻿using ECommeceSystem.EF.Models;
+using ECommerceSystem.App.DTOs.CategoryDtos.Response;
 using ECommerceSystem.Core.Result;
 using ECommerceSystem.Domain.DTOs.CategoryDtos.Request;
 using System;
@@ -11,5 +12,6 @@ namespace ECommerceSystem.Domain.IServices
     {
         Task<string> GetCategoryName(string categoryName);
         Task<Result<CategoryModel>>  CreateCategoryAsync(CreateCategoryDto dto);
+        Task<Result<List<CategoryDto>>> GetAllCategoriesAsync();
     }
 }

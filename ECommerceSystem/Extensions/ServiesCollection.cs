@@ -7,7 +7,7 @@ using ECommerceSystem.Domain.IServices;
 using ECommerceSystem.Domain.Service;
 
 
-namespace ECommerceSystem
+namespace ECommerceSystem.Extensions
 {
     public static class ServiesCollection
     {

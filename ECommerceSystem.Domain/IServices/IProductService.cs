@@ -2,6 +2,7 @@
 using ECommerceSystem.App.DTOs.ProductDtos.Request;
 using ECommerceSystem.App.DTOs.ProductDtos.Response;
 using ECommerceSystem.Core.Result;
+using ECommerceSystem.Domain.DTOs.ProductDtos.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +17,6 @@ namespace ECommerceSystem.App.IServices
             Task<Result<ProductDto>> UpdateProductAsync(int productId, ProductUpdateDto productUpdateDto);
             Task<Result<bool>> DeleteProductAsync(int productId);
         Task<Result<bool>> SoftDeleteAsync(int productId);
+        Task<Result<bool>> UpdateStockAsync(int productId, UpdateStockDto stockDto);
     }
 }
