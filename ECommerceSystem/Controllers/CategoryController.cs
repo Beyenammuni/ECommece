@@ -28,5 +28,13 @@ namespace ECommerceSystem.Controllers
             var result = await _categoryService.GetAllCategoriesAsync();
             return Ok(result);
         }
+        [HttpPut("Update/{id}")]
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryDto dto)
+        {
+            var result = await _categoryService.UpdateCategoryAsync(id, dto);
+            if (result.IsSuccess)
+                return Ok(result);
+            return BadRequest(result);
+        }
     }
 }

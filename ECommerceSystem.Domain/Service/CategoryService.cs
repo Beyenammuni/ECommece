@@ -32,6 +32,7 @@ namespace ECommerceSystem.Domain.Service
                 Name = dto.Name
             };
             await _unit.Categories.AddAsync(category);
+            await _unit.Complete();
             return Result<CategoryModel>.Success(category, "Category Created Successfully");
         }
 
@@ -42,15 +43,25 @@ namespace ECommerceSystem.Domain.Service
             var result = categories.Select(p => new CategoryDto
             {
                 Id = p.Id,
-                Name = p.Name,
+                Name = p.Name
             }).ToList();
 
             return Result<List<CategoryDto>>.Success(result);
         }
 
-        public Task<string> GetCategoryName(string categoryName)
+        public async Task<Result<bool>> UpdateCategoryAsync(int id, UpdateCategoryDto dto)
         {
-            throw new NotImplementedException();
+            var category = await _unit.Categories.GetByIdAsync(id);
+            if (category == null)
+                return Result<bool>.Failure("Category not found");
+
+            if(string.IsNullOrWhiteSpace(dto.Name))
+                return Result<bool>.Failure("Category name is required");
+
+            category.Name = dto.Name;
+            await _unit.Categories.UpdateAsync(category);
+            await _unit.Complete();
+            return Result<bool>.Success(true, "Category updated successfully");
         }
     }
 }

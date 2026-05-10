@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwagger();
 builder.Services.AddCors(o =>
 {
-    o.AddPolicy("AllowAnyOrigin", builder =>
+    o.AddPolicy("AllowLocalOrigin", builder =>
         builder.WithOrigins("http://localhost:5044")//that's the port of the frontend application
                .AllowAnyMethod()
                .AllowAnyHeader());
@@ -36,4 +36,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
+app.UseCors("AllowLocalOrigin");
 app.Run();

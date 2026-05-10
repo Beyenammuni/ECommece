@@ -8,16 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="DTOs\CardItemDto\**" />
+    <Compile Remove="DTOs\OrderItemStos\**" />
     <EmbeddedResource Remove="DTOs\CardItemDto\**" />
+    <EmbeddedResource Remove="DTOs\OrderItemStos\**" />
     <None Remove="DTOs\CardItemDto\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DTOs\OrderDtos\Request\" />
-    <Folder Include="DTOs\OrderItemStos\Request\" />
-    <Folder Include="DTOs\OrderItemStos\Response\" />
-    <Folder Include="DTOs\UserDtos\Request\" />
-    <Folder Include="DTOs\UserDtos\Response\" />
+    <None Remove="DTOs\OrderItemStos\**" />
   </ItemGroup>
 
   <ItemGroup>

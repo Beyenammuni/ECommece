@@ -10,8 +10,8 @@ namespace ECommerceSystem.Domain.IServices
 {
     public interface ICategoryService
     {
-        Task<string> GetCategoryName(string categoryName);
         Task<Result<CategoryModel>>  CreateCategoryAsync(CreateCategoryDto dto);
         Task<Result<List<CategoryDto>>> GetAllCategoriesAsync();
+        Task<Result<bool>> UpdateCategoryAsync(int id, UpdateCategoryDto dto);
     }
 }

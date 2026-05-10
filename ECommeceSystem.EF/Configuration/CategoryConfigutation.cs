@@ -11,7 +11,6 @@ namespace ECommeceSystem.EF.Configuration
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CategoryModel> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Name);
             builder.HasMany(x => x.Products).WithOne(x => x.Category)
             .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Restrict); ;
         }

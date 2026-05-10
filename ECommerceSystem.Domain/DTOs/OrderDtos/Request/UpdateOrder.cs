@@ -1,33 +1,22 @@
-﻿using ECommerceSystem.Core.Models;
-using ECommerceSystem.Domain.DTOs.OrderDtos.Response;
+﻿using ECommerceSystem.Domain.DTOs.OrderDtos.Response;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
-namespace ECommeceSystem.EF.Models
+namespace ECommerceSystem.Domain.DTOs.OrderDtos.Request
 {
-    public class OrderModel: BaseEntity
+    public class UpdateOrder
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
         public int CustomerId { get; set; }
 
         public DateTime OrderDate { get; set; }
 
         [Required]
-
         public OrderStatus Status { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalAmount { get; set; }
-
-        // Navigation
-        [ForeignKey("CustomerId")]
-        public UserModel Customer { get; set; }
-
-        public ICollection<OrderItemModel> OrderItems { get; set; }
     }
 }
