@@ -10,7 +10,7 @@ namespace ECommeceSystem.EF.BaseRepositry
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
         Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
+        void Update(T entity);
+        void Delete(T entity);
     }
 }

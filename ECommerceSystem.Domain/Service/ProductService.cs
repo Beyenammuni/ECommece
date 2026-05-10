@@ -1,4 +1,5 @@
-﻿using ECommeceSystem.EF.IRepositries;
+﻿using ECommeceSystem.EF.Filters;
+using ECommeceSystem.EF.IRepositries;
 using ECommeceSystem.EF.Models;
 using ECommeceSystem.EF.UnitOfWork;
 using ECommerceSystem.App.DTOs.ProductDtos.Request;
@@ -6,6 +7,7 @@ using ECommerceSystem.App.DTOs.ProductDtos.Response;
 using ECommerceSystem.App.IServices;
 using ECommerceSystem.Core.Result;
 using ECommerceSystem.Domain.DTOs.ProductDtos.Request;
+using ECommerceSystem.Domain.DTOs.ProductDtos.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -113,7 +115,7 @@ namespace ECommerceSystem.App.Service
             if (product == null)
                 return Result<bool>.Failure("Product not found");
 
-            await _unit.Products.DeleteAsync(product);
+             _unit.Products.Delete(product);
             await _unit.Complete();
 
             return Result<bool>.Success(true);
@@ -139,6 +141,67 @@ namespace ECommerceSystem.App.Service
             stock.Result.StockQuantity = stockDto.StockQuantity;
             await _unit.Complete();
             return Result<bool>.Success(true);
+        }
+
+
+        public async Task<Result<List<ProductResponseDto>>> GetByIdToCustomerAsync(int id)
+        {
+            var product = await _unit.Products.GetByIdAsync(id);
+            if (product == null)
+                return Result<List<ProductResponseDto>>.Failure("Product not found");
+
+            var response = new ProductResponseDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                StockQuantity = product.StockQuantity,
+                CategoryId = product.CategoryId,
+                CategoryName = product.Category?.Name
+            };
+
+            return Result<List<ProductResponseDto>>.Success(new List<ProductResponseDto> { response });
+        }
+
+        public async Task<Result<ProductResponseDto>> GetProductAsync(ProductFilterDto filter)
+        {
+            var products = await _unit.Products.GetAllAsync();
+            var query = products.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.Search))
+                query = query.Where(p => p.Name.Contains(filter.Search, StringComparison.OrdinalIgnoreCase));
+
+            if (filter.MinPrice.HasValue)
+                query = query.Where(p => p.Price >= filter.MinPrice.Value);
+
+            if (filter.MaxPrice.HasValue)
+                query = query.Where(p => p.Price <= filter.MaxPrice.Value);
+
+            if (filter.CategoryId.HasValue)
+                query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
+
+            var pagedProducts = query
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToList();
+
+            var product = pagedProducts.FirstOrDefault();
+            if (product == null)
+                return Result<ProductResponseDto>.Failure("Product not found");
+
+            var response = new ProductResponseDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                StockQuantity = product.StockQuantity,
+                CategoryId = product.CategoryId,
+                CategoryName = product.Category?.Name
+            };
+
+            return Result<ProductResponseDto>.Success(response);
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ECommerceSystem.Domain.DTOs.OrderDtos.Response;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ECommerceSystem.Domain.DTOs.OrderDtos.Response
+namespace ECommeceSystem.EF.Filters
 {
 
     public class OrderFilterDto

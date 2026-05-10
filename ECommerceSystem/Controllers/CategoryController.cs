@@ -1,5 +1,6 @@
 ﻿using ECommerceSystem.Domain.DTOs.CategoryDtos.Request;
 using ECommerceSystem.Domain.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ namespace ECommerceSystem.Controllers
         {
             _categoryService = categoryService;
         }
+        //[Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto dto)
         {
@@ -22,12 +24,14 @@ namespace ECommerceSystem.Controllers
                 return Ok(result);
             return BadRequest(result);
         }
+        //[Authorize(Roles = "Admin")]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllCategories()
         {
             var result = await _categoryService.GetAllCategoriesAsync();
             return Ok(result);
         }
+        //[Authorize(Roles = "Admin")]
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryDto dto)
         {

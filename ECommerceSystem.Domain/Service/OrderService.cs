@@ -1,4 +1,5 @@
-﻿using ECommeceSystem.EF.Models;
+﻿using ECommeceSystem.EF.Filters;
+using ECommeceSystem.EF.Models;
 using ECommeceSystem.EF.UnitOfWork;
 using ECommerceSystem.App.DTOs.ProductDtos.Response;
 using ECommerceSystem.Core.Result;
@@ -68,7 +69,7 @@ namespace ECommerceSystem.Domain.Service
 
             order.Status = dto.Status;
 
-            await _unit.Orders.UpdateAsync(order);
+             _unit.Orders.Update(order);
 
             await _unit.Complete();
 

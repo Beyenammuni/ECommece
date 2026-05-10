@@ -1,4 +1,5 @@
-﻿using ECommeceSystem.EF.Models;
+﻿using ECommeceSystem.EF.Filters;
+using ECommeceSystem.EF.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +17,7 @@ namespace ECommeceSystem.EF.IRepositries
         void Delete(ProductModel product);
         Task SoftDeleteAsync(ProductModel product);
         void UpdateStock(ProductModel product);
+        Task<List<ProductModel>> GetProductsAsync(ProductFilterDto filter);
+        Task<ProductModel> GetByIdToCustomerAsync(int id);
     }
 }

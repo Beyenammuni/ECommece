@@ -59,7 +59,7 @@ namespace ECommerceSystem.Domain.Service
                 return Result<bool>.Failure("Category name is required");
 
             category.Name = dto.Name;
-            await _unit.Categories.UpdateAsync(category);
+             _unit.Categories.Update(category);
             await _unit.Complete();
             return Result<bool>.Success(true, "Category updated successfully");
         }

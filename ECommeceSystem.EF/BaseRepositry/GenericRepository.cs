@@ -23,7 +23,7 @@ namespace ECommeceSystem.EF.BaseRepository
              await _dbSet.AddAsync(entity);
         }
 
-        public async Task DeleteAsync(T entity)
+        public void  Delete(T entity)
         {
              _dbSet.Remove(entity);
         }
@@ -38,7 +38,7 @@ namespace ECommeceSystem.EF.BaseRepository
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task UpdateAsync(T entity)
+        public  void Update(T entity)
         {
             _dbSet.Update(entity);
         }

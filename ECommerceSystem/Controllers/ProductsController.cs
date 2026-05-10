@@ -1,4 +1,5 @@
-﻿using ECommerceSystem.App.DTOs.ProductDtos.Request;
+﻿using ECommeceSystem.EF.Filters;
+using ECommerceSystem.App.DTOs.ProductDtos.Request;
 using ECommerceSystem.App.IServices;
 using ECommerceSystem.Core.Result;
 using ECommerceSystem.Domain.DTOs.ProductDtos.Request;
@@ -44,7 +45,7 @@ namespace ECommerceSystem.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("Update{id}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] ProductUpdateDto dto)
         {
@@ -63,6 +64,7 @@ namespace ECommerceSystem.Controllers
                 return BadRequest(result);
             return Ok(result);
         }
+        //[Authorize(Roles = "Admin")]
         [HttpPatch("UpdateStock{id}")]
         public async Task<IActionResult> UpdateStockAsync(int id, [FromBody] UpdateStockDto dto)
         {
@@ -71,5 +73,17 @@ namespace ECommerceSystem.Controllers
                 return BadRequest(result);
             return Ok(result);
         }
+        [HttpGet("GetProduct")]
+        public async Task<IActionResult> GetProductAsync([FromQuery] ProductFilterDto filter)
+        {
+            var result = await _productService.GetProductAsync(filter);
+            return Ok(result);
         }
+        [HttpGet("GetByIdToCustomer{id}")]
+        public async Task<IActionResult> GetByIdToCustomerAsync(int id)
+        {
+            var result = await _productService.GetByIdToCustomerAsync(id);
+            return Ok(result);
+        }
+    }
 }
