@@ -26,7 +26,7 @@ namespace ECommerceSystem.App.Service
         {
             if (string.IsNullOrWhiteSpace(dto.Name))
                 return Result<ProductDto>.Failure("Product name is required");
-
+            
             if (dto.Price <= 0)
                 return Result<ProductDto>.Failure("Price must be greater than 0");
 
@@ -91,6 +91,10 @@ namespace ECommerceSystem.App.Service
             if (product == null)
                 return Result<ProductDto>.Failure("Product not found");
 
+
+            if (product.StockQuantity < dto.StockQuantity)
+                return Result<ProductDto>.Failure("Requested stock quantity exceeds available stock");
+
             product.Name = dto.Name;
             product.Description = dto.Description;
             product.Price = dto.Price;
@@ -121,24 +125,30 @@ namespace ECommerceSystem.App.Service
             return Result<bool>.Success(true);
         }
 
-        public async Task<Result<bool>> SoftDeleteAsync(int productId)
+        public async Task<Result<bool>> SoftDeleteAsync(int id)
         {
-            var product = _unit.Products.GetByIdAsync(productId);
+            var product = await _unit.Products.GetByIdAsync(id);
             if (product == null)
                 return Result<bool>.Failure("Product not found");
-            product.Result.IsActive = false;
-                  await _unit.Complete();
+
+               await _unit.Products.SoftDeleteAsync(product);
+            await _unit.Complete();
             return Result<bool>.Success(true);
         }
 
         public async Task<Result<bool>> UpdateStockAsync(int productId, UpdateStockDto stockDto)
         {
-            var stock = _unit.Products.GetByIdAsync(productId);
+            var stock = await _unit.Products.GetByIdAsync(productId);
+
             if (stock == null)
                 return Result<bool>.Failure("Product not found");
-            if(stockDto.StockQuantity < 0)
+
+            if (stock.StockQuantity < stockDto.StockQuantity)
+               return Result<bool>.Failure("Requested stock quantity exceeds available stock");
+
+            if (stockDto.StockQuantity < 0)
                 return Result<bool>.Failure("Stock quantity cannot be negative");
-            stock.Result.StockQuantity = stockDto.StockQuantity;
+            _unit.Products.UpdateStock(stock);
             await _unit.Complete();
             return Result<bool>.Success(true);
         }
@@ -146,11 +156,11 @@ namespace ECommerceSystem.App.Service
 
         public async Task<Result<List<ProductResponseDto>>> GetByIdToCustomerAsync(int id)
         {
-            var product = await _unit.Products.GetByIdAsync(id);
+            var product = await _unit.Products.GetByIdToCustomerAsync(id);
             if (product == null)
                 return Result<List<ProductResponseDto>>.Failure("Product not found");
 
-            var response = new ProductResponseDto
+            var response=  new ProductResponseDto
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -164,44 +174,25 @@ namespace ECommerceSystem.App.Service
             return Result<List<ProductResponseDto>>.Success(new List<ProductResponseDto> { response });
         }
 
-        public async Task<Result<ProductResponseDto>> GetProductAsync(ProductFilterDto filter)
+        public async Task<Result<List<ProductResponseDto>>> GetProductAsync(ProductFilterDto filter)
         {
-            var products = await _unit.Products.GetAllAsync();
-            var query = products.AsQueryable();
+            var product = await _unit.Products.GetProductsAsync(filter);
 
-            if (!string.IsNullOrWhiteSpace(filter.Search))
-                query = query.Where(p => p.Name.Contains(filter.Search, StringComparison.OrdinalIgnoreCase));
-
-            if (filter.MinPrice.HasValue)
-                query = query.Where(p => p.Price >= filter.MinPrice.Value);
-
-            if (filter.MaxPrice.HasValue)
-                query = query.Where(p => p.Price <= filter.MaxPrice.Value);
-
-            if (filter.CategoryId.HasValue)
-                query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
-
-            var pagedProducts = query
-                .Skip((filter.PageNumber - 1) * filter.PageSize)
-                .Take(filter.PageSize)
-                .ToList();
-
-            var product = pagedProducts.FirstOrDefault();
             if (product == null)
-                return Result<ProductResponseDto>.Failure("Product not found");
+                return Result<List<ProductResponseDto>>.Failure("Product not found");
 
-            var response = new ProductResponseDto
+            var response = product.Select(p => new ProductResponseDto
             {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                StockQuantity = product.StockQuantity,
-                CategoryId = product.CategoryId,
-                CategoryName = product.Category?.Name
-            };
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                StockQuantity = p.StockQuantity,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category?.Name
+            }).ToList();
 
-            return Result<ProductResponseDto>.Success(response);
+            return Result<List<ProductResponseDto>>.Success(response);
         }
     }
 }

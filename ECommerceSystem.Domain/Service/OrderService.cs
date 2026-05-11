@@ -2,6 +2,7 @@
 using ECommeceSystem.EF.Models;
 using ECommeceSystem.EF.UnitOfWork;
 using ECommerceSystem.App.DTOs.ProductDtos.Response;
+using ECommerceSystem.Core.Enums;
 using ECommerceSystem.Core.Result;
 using ECommerceSystem.Domain.DTOs.OrderDtos.Request;
 using ECommerceSystem.Domain.DTOs.OrderDtos.Response;

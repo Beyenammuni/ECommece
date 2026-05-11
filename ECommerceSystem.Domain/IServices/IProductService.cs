@@ -18,9 +18,9 @@ namespace ECommerceSystem.App.IServices
         Task<Result<List<ProductDto>>> GetAllProductsAsync();
         Task<Result<ProductDto>> UpdateProductAsync(int productId, ProductUpdateDto productUpdateDto);
         Task<Result<bool>> DeleteProductAsync(int productId);
-        Task<Result<bool>> SoftDeleteAsync(int productId);
+        Task<Result<bool>> SoftDeleteAsync(int id);
         Task<Result<bool>> UpdateStockAsync(int productId, UpdateStockDto stockDto);
-        Task<Result<ProductResponseDto>> GetProductAsync(ProductFilterDto filter);
+        Task<Result<List<ProductResponseDto>>> GetProductAsync(ProductFilterDto filter);
         Task<Result<List<ProductResponseDto>>> GetByIdToCustomerAsync(int id);
     }
 }

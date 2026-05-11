@@ -1,5 +1,5 @@
-﻿using ECommerceSystem.Core.Models;
-using ECommerceSystem.Domain.DTOs.OrderDtos.Response;
+﻿using ECommerceSystem.Core.Enums;
+using ECommerceSystem.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

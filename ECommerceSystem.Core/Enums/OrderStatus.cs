@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ECommerceSystem.Domain.DTOs.OrderDtos.Response
+namespace ECommerceSystem.Core.Enums
 {
     public enum OrderStatus
     {

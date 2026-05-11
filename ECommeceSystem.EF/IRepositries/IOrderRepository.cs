@@ -1,4 +1,5 @@
-﻿using ECommeceSystem.EF.Filters;
+﻿using ECommeceSystem.EF.BaseRepositry;
+using ECommeceSystem.EF.Filters;
 using ECommeceSystem.EF.Models;
 using System;
 using System.Collections.Generic;
@@ -7,14 +8,9 @@ using System.Threading.Tasks;
 
 namespace ECommeceSystem.EF.IRepositries
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IGenericRepository<OrderModel>
     {
-        Task<List<OrderModel>> GetAllAsync();
-        Task<OrderModel> GetByIdAsync(int id);
-        Task AddAsync(OrderModel order);
         Task<List<OrderModel>> GetFilteredOrdersAsync(
         OrderFilterDto filter);
-        void Update(OrderModel order);
-        void Delete(OrderModel order);
     }
 }

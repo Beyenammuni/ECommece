@@ -1,4 +1,5 @@
-﻿using ECommeceSystem.EF.Filters;
+﻿using ECommeceSystem.EF.BaseRepositry;
+using ECommeceSystem.EF.Filters;
 using ECommeceSystem.EF.Models;
 using System;
 using System.Collections.Generic;
@@ -7,14 +8,8 @@ using System.Threading.Tasks;
 
 namespace ECommeceSystem.EF.IRepositries
 {
-    public interface IProductRepository
+    public interface IProductRepository : IGenericRepository<ProductModel>
     {
-
-        Task<List<ProductModel>> GetAllAsync();
-        Task<ProductModel> GetByIdAsync(int id);
-        Task AddAsync(ProductModel product);
-        void Update(ProductModel product);
-        void Delete(ProductModel product);
         Task SoftDeleteAsync(ProductModel product);
         void UpdateStock(ProductModel product);
         Task<List<ProductModel>> GetProductsAsync(ProductFilterDto filter);
