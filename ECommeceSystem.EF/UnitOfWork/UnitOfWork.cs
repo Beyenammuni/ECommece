@@ -18,11 +18,11 @@ namespace ECommeceSystem.EF.UnitOfWork
 
         public IOrderRepository Orders { get; }
 
-        public IGenericRepository<CategoryModel> Categories { get; }
+        public ICategoryRepository Categories { get; }
 
-        public IGenericRepository<UserModel> Users { get; }
+        public IUserRepository Users { get; }
 
-        public IGenericRepository<OrderItemModel> OrderItems { get; }
+        public IOrderItemRepository OrderItems { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -34,14 +34,11 @@ namespace ECommeceSystem.EF.UnitOfWork
 
             Orders = new OrderRepositry(_context);
 
-            Categories =
-                new GenericRepository<CategoryModel>(_context);
+            Categories =new CategoryRepository(_context);
 
-            Users =
-                new GenericRepository<UserModel>(_context);
+            Users = new UserRepository(_context);
 
-            OrderItems =
-                new GenericRepository<OrderItemModel>(_context);
+            OrderItems = new OrderItemRepository(_context);
         }
 
         public async Task<int> Complete()

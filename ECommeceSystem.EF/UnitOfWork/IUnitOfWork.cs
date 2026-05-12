@@ -1,6 +1,7 @@
 ﻿using ECommeceSystem.EF.BaseRepositry;
 using ECommeceSystem.EF.IRepositries;
 using ECommeceSystem.EF.Models;
+using ECommeceSystem.EF.Repository;
 using System;
 using System.Threading.Tasks;
 
@@ -12,11 +13,11 @@ public interface IUnitOfWork : IDisposable
 
     IOrderRepository Orders { get; }
 
-    IGenericRepository<CategoryModel> Categories { get; }
+    ICategoryRepository Categories { get; }
 
-    IGenericRepository<UserModel> Users { get; }
+    IUserRepository Users { get; }
 
-    IGenericRepository<OrderItemModel> OrderItems { get; }
+    IOrderItemRepository OrderItems { get; }
 
     Task<int> Complete();
 }

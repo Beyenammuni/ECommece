@@ -1,4 +1,5 @@
-﻿using ECommeceSystem.EF.Data;
+﻿using ECommeceSystem.EF.BaseRepositry;
+using ECommeceSystem.EF.Data;
 using ECommeceSystem.EF.IRepositries;
 using ECommeceSystem.EF.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ECommeceSystem.EF.Repository
 {
-    public class CategoryRepository : ICategoryRepsitory
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly AppDbContext _context;
 

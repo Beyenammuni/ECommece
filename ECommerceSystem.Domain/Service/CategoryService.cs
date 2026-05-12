@@ -28,7 +28,6 @@ namespace ECommerceSystem.Domain.Service
             }
             var category = new CategoryModel
             {
-
                 Name = dto.Name
             };
             await _unit.Categories.AddAsync(category);

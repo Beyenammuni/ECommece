@@ -14,6 +14,12 @@ namespace ECommerceSystem.Domain.Service
     public class OrderService : IOrderService
     {
         private readonly IUnitOfWork _unit;
+
+        public OrderService(IUnitOfWork unit)
+        {
+            _unit = unit;
+        }
+
         public async Task<Result<List<OrderDto>>> GetAllOrderAsync()
         {
             var orders = await _unit.Orders.GetAllAsync();

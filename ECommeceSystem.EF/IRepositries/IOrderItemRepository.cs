@@ -1,10 +1,14 @@
-﻿using System;
+﻿using ECommeceSystem.EF.BaseRepositry;
+using ECommeceSystem.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ECommeceSystem.EF.IRepositries
 {
-    internal interface IOrderItemRepository
+    public interface IOrderItemRepository: IGenericRepository<OrderItemModel>
     {
+        Task<OrderItemModel> CreateOrderForCustomer(int CustomerId);
     }
 }

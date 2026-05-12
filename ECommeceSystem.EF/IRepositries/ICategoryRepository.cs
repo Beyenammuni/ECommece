@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECommeceSystem.EF.IRepositries
 {
-    public interface ICategoryRepsitory: IGenericRepository<CategoryModel>
+    public interface ICategoryRepository: IGenericRepository<CategoryModel>
     {
 
     }

@@ -15,12 +15,17 @@ namespace ECommerceSystem.Extensions
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>(); 
             services.AddScoped<IProductRepository, ProductRepostory>();
-            services.AddScoped<ICategoryRepsitory, CategoryRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
-            //services.AddScoped<IOrderService, OrderService>();
-            //services.AddScoped<ICartItemService, CartItemService>();
-            //services.AddScoped<IOrderItemService, OrderItemService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderRepository, OrderRepositry>();
+            services.AddScoped<ICartItemService, CartItemService>();
+            services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped<IOrderItemService, OrderItemService>();
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            services.AddScoped<IUserService,UserService>();
+            services.AddScoped<IUserRepository,UserRepository>();
         }
     }
 }
